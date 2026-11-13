@@ -9,7 +9,12 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Vazirmatn', Tahoma, sans-serif; }
         
         :root {
-            --bg: #0a0a0a; --box: #151515; --gold: #d4af37; --text: #fff; --gray: #888;
+            --bg: #0a0a0a; 
+            --box: #151515; 
+            --gold: #d4af37; 
+            --text: #fff; 
+            --gray: #aaa;
+            --telegram: #0088cc;
         }
 
         body {
@@ -27,267 +32,295 @@
             justify-content: center; align-items: center; z-index: 9999;
             transition: opacity 1s ease;
         }
-        #welcome-screen h1 { color: var(--gold); font-size: 32px; margin-bottom: 10px; text-shadow: 0 0 20px var(--gold); }
-        #welcome-screen p { color: var(--gray); font-size: 16px; margin-bottom: 30px; }
+        #welcome-screen h1 { color: var(--gold); font-size: 32px; margin-bottom: 10px; text-shadow: 0 0 20px var(--gold); text-align: center; }
+        #welcome-screen p { color: var(--gray); font-size: 16px; margin-bottom: 30px; text-align: center; }
         #enter-btn { background: linear-gradient(135deg, #d4af37, #b8860b); color: #111; border: none; padding: 15px 40px; border-radius: 30px; font-size: 18px; font-weight: 900; cursor: pointer; box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
         #enter-btn:active { transform: scale(0.95); }
 
         /* هدر سایت */
-        .header { width: 100%; max-width: 600px; padding: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .header { width: 100%; max-width: 600px; padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222;}
         .header h1 { color: var(--gold); font-size: 20px; }
         .wallet-btn { background: var(--box); border: 1px solid var(--gold); color: var(--gold); padding: 8px 15px; border-radius: 10px; font-size: 12px; cursor: pointer; text-decoration: none; }
 
         /* محتوای اصلی */
-        .main-content { width: 100%; max-width: 600px; padding: 0 20px 20px; display: none; }
+        .main-content { width: 100%; max-width: 600px; padding: 20px; display: none; }
         
-        .section-title { color: var(--gold); font-size: 16px; margin: 20px 0 10px; border-right: 3px solid var(--gold); padding-right: 10px; }
-
-        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .service-card {
-            background: var(--box); border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 15px; padding: 20px; text-align: center; cursor: pointer;
-            transition: all 0.3s;
+        /* کارت محصول */
+        .product-card {
+            background: var(--box); border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 15px; padding: 20px; margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
         }
-        .service-card:active { transform: scale(0.95); border-color: var(--gold); }
-        .service-card .icon { font-size: 40px; margin-bottom: 10px; }
-        .service-card h3 { font-size: 15px; color: #fff; }
+        .product-card:hover { border-color: rgba(212, 175, 55, 0.4); transform: translateY(-2px); }
+        
+        .product-title { color: var(--gold); font-size: 18px; font-weight: 900; margin-bottom: 10px; border-right: 3px solid var(--gold); padding-right: 10px; }
+        .product-desc { color: #ccc; font-size: 14px; line-height: 1.8; margin-bottom: 15px; white-space: pre-line; }
+        
+        .product-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed #333; padding-top: 15px; }
+        .product-price { color: #fff; font-size: 15px; font-weight: 700; }
+        
+        .order-btn {
+            background: linear-gradient(135deg, #0088cc, #00c6ff);
+            color: #fff; text-decoration: none;
+            padding: 10px 25px; border-radius: 10px; font-weight: 700; font-size: 14px;
+            display: flex; align-items: center; gap: 5px;
+            box-shadow: 0 4px 15px rgba(0, 136, 204, 0.3);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .order-btn:active { transform: scale(0.95); }
 
-        /* صفحه محصولات */
-        #products-page { display: none; }
-        .product-item { background: var(--box); border: 1px solid #333; border-radius: 12px; padding: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
-        .product-item h4 { font-size: 14px; margin-bottom: 5px; }
-        .product-item span { color: var(--gold); font-size: 13px; }
-        .product-item button { background: var(--gold); color: #111; border: none; padding: 8px 15px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+        .footer-text { text-align: center; color: var(--gray); font-size: 12px; margin-top: 20px; padding-bottom: 30px; }
 
-        /* صفحه جزئیات سفارش */
-        #order-page { display: none; background: var(--box); padding: 20px; border-radius: 15px; border: 1px solid var(--gold); }
-        .order-page h2 { color: var(--gold); margin-bottom: 10px; }
-        .order-page p { color: var(--gray); font-size: 14px; line-height: 1.6; margin-bottom: 20px; }
-        .order-input { width: 100%; padding: 12px; background: #000; border: 1px solid #444; color: #fff; border-radius: 8px; margin-bottom: 15px; font-family: inherit; }
-        .order-btn { width: 100%; background: #25D366; color: #fff; border: none; padding: 15px; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; }
-
-        /* پنل مدیریت مخفی */
-        #admin-panel { display: none; background: #111; padding: 20px; border-radius: 15px; margin-top: 20px; border: 2px dashed red; }
-        #admin-panel h3 { color: red; margin-bottom: 15px; }
-        #admin-panel input { width: 100%; padding: 10px; margin-bottom: 10px; background: #222; border: 1px solid #444; color: #fff; border-radius: 5px; }
-        #admin-panel button { background: red; color: #fff; border: none; padding: 10px; border-radius: 5px; cursor: pointer; width: 100%; font-weight: 700; }
-
-        .back-btn { display: inline-block; color: var(--gray); margin-bottom: 15px; cursor: pointer; font-size: 14px; }
-        .back-btn:hover { color: var(--gold); }
+        .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(50px); background: #111; color: var(--gold); padding: 10px 20px; border-radius: 30px; font-size: 13px; opacity: 0; transition: all 0.3s; z-index: 3000; border: 1px solid var(--gold); pointer-events: none; box-shadow: 0 0 15px var(--gold); text-align: center; }
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
     </style>
 </head>
 <body>
 
+<div class="toast" id="toast">کپی شد!</div>
+
     <!-- صفحه خوش‌آمدگویی -->
     <div id="welcome-screen">
         <h1>خدمات مجازی تیموری</h1>
-        <p>خرید و فروش خدمات دیجیتال و بازی</p>
-        <button id="enter-btn" onclick="enterSite()">ورود به سایت</button>
+        <p>بهترین و باکیفیت‌ترین خدمات دیجیتال<br>با مدیریت پرویز تیموری</p>
+        <button id="enter-btn" onclick="enterSite()">ورود به فروشگاه</button>
     </div>
 
     <!-- هدر -->
     <div class="header">
-        <h1>خدمات تیموری</h1>
+        <h1>خدمات مجازی تیموری</h1>
         <a href="#" class="wallet-btn" onclick="showWallet()">💰 افزایش موجودی</a>
     </div>
 
-    <!-- محتوای اصلی (خانه) -->
+    <!-- محتوای اصلی -->
     <div class="main-content" id="home-page">
-        <div class="section-title">دسته‌بندی خدمات</div>
-        <div class="services-grid">
-            <div class="service-card" onclick="showProducts('telegram')">
-                <div class="icon">✈️</div>
-                <h3>خدمات تلگرام</h3>
-            </div>
-            <div class="service-card" onclick="showProducts('instagram')">
-                <div class="icon">📸</div>
-                <h3>خدمات اینستاگرام</h3>
-            </div>
-            <div class="service-card" onclick="showProducts('tiktok')">
-                <div class="icon">🎵</div>
-                <h3>خدمات تیک‌تاک</h3>
-            </div>
-            <div class="service-card" onclick="showProducts('youtube')">
-                <div class="icon">▶️</div>
-                <h3>خدمات یوتیوب</h3>
-            </div>
-            <div class="service-card" onclick="showProducts('pubg')">
-                <div class="icon">🎮</div>
-                <h3>پابجی موبایل</h3>
-            </div>
-        </div>
-
-        <!-- پنل مدیریت مخفی (با کلیک روی خط پایین باز میشه) -->
-        <div style="text-align: center; margin-top: 50px; color: #333; cursor: pointer;" onclick="openAdmin()">...</div>
         
-        <div id="admin-panel">
-            <h3>پنل مدیریت (مخصوص مدیر)</h3>
-            <input type="text" id="p-category" placeholder="دسته (مثلا telegram)">
-            <input type="text" id="p-title" placeholder="نام محصول">
-            <input type="number" id="p-price" placeholder="قیمت (مثلا 500)">
-            <input type="text" id="p-desc" placeholder="توضیحات محصول">
-            <button onclick="addProduct()">افزودن محصول</button>
-            <button style="background: #333; margin-top: 10px;" onclick="clearProducts()">پاک کردن همه محصولات</button>
+        <!-- محصول ۱ -->
+        <div class="product-card">
+            <div class="product-title">ممبر برای کانال و گروه</div>
+            <div class="product-desc">ممبر برای گروه و کانال ۱ ماه بدون ریزش: ۷۰ افغانی
+ممبر برای گروه و کانال ۳ ماه ضمانت بدون ریزش: ۱۲۰ افغانی</div>
+            <div class="product-footer">
+                <div class="product-price">شروع از ۷۰ افغانی</div>
+                <a href="https://t.me/khan_temori_1?text=سلام، برای خرید ممبر کانال مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
+            </div>
         </div>
-    </div>
 
-    <!-- صفحه نمایش محصولات -->
-    <div class="main-content" id="products-page">
-        <div class="back-btn" onclick="goBack()">🔙 بازگشت</div>
-        <div class="section-title" id="products-title">محصولات</div>
-        <div id="product-list"></div>
-    </div>
+        <!-- محصول ۲ -->
+        <div class="product-card">
+            <div class="product-title">پرمیوم برای تلگرام</div>
+            <div class="product-desc">پریمیوم ۳ ماه: ۱۲۰۰ افغانی (گیفت فوری)
+پریمیوم ۶ ماه: ۱۵۰۰ افغانی (گیفت فوری)
+پریمیوم ۱۲ ماه: ۲۵۰۰ افغانی (گیفت فوری)</div>
+            <div class="product-footer">
+                <div class="product-price">شروع از ۱۲۰۰ افغانی</div>
+                <a href="https://t.me/khan_temori_1?text=سلام، برای خرید پرمیوم تلگرام مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
+            </div>
+        </div>
 
-    <!-- صفحه ثبت سفارش -->
-    <div class="main-content" id="order-page">
-        <div class="back-btn" onclick="goBack()">🔙 بازگشت</div>
-        <h2 id="order-title"></h2>
-        <p id="order-desc"></p>
-        <input type="number" class="order-input" id="order-qty" placeholder="تعداد را وارد کنید" min="1" value="1" oninput="calculateTotal()">
-        <p style="color: var(--gold); margin-bottom: 15px;">مبلغ کل: <span id="total-price">0</span> افغانی</p>
-        <button class="order-btn" onclick="submitOrder()">ثبت سفارش و ارسال به واتساپ</button>
+        <!-- محصول ۳ -->
+        <div class="product-card">
+            <div class="product-title">اکانت مجازی تلگرام</div>
+            <div class="product-desc">اکانت‌های مجازی تلگرام از هر کشور موجود است. تنها اکانت‌هایی که از طرف ما ضمانت دارد. اکانت‌های شماره افغانستان است.</div>
+            <div class="product-footer">
+                <div class="product-price">هر اکانت ۱۰۰ افغانی</div>
+                <a href="https://t.me/khan_temori_1?text=سلام، برای خرید اکانت مجازی تلگرام مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
+            </div>
+        </div>
+
+        <!-- محصول ۴ -->
+        <div class="product-card">
+            <div class="product-title">استارز تلگرام</div>
+            <div class="product-desc">فروش استارز تلگرام از ۵۰ دانه تا ۱۰,۰۰۰. قیمت استارز لحظه‌ای (بخاطر پایین و بالا رفتن دلار)</div>
+            <div class="product-footer">
+                <div class="product-price">قیمت لحظه‌ای</div>
+                <a href="https://t.me/khan_temori_1?text=سلام، برای خرید استارز تلگرام مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
+            </div>
+        </div>
+
+        <!-- محصول ۵ -->
+        <div class="product-card">
+            <div class="product-title">بوست برای کانال</div>
+            <div class="product-desc">افزایش سطح کانال توسط بوست. قیمت هر عدد بوست یک ماه ۳۰ افغانی تا ۶ ماه. هر تعداد موجود، ضمانتی.</div>
+            <div class="product-footer">
+                <div class="product-price">شروع از ۳۰ افغانی</div>
+                <a href="https://t.me/khan_temori_1?text=سلام، برای خرید بوست کانال مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
+            </div>
+        </div>
+
+        <!-- محصول ۶ -->
+        <div class="product-card">
+            <div class="product-title">لایک پست اینستاگرام</div>
+            <div class="product-desc">لایک برای پست اینستاگرام کاملاً پر سرعت و بدون ریزش. حداقل سفارش ۱۰۰۰، حداکثر ۱ میلیون. در صورت بالا بودن سفارش تخفیف داده می‌شود.</div>
+            <div class="product-footer">
+                <div class="product-price">هر ۱۰۰۰ لایک: ۳۰ افغانی</div>
+                <a href="https://t.me/khan_temori_1?text=سلام، برای خرید لایک اینستاگرام مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
+            </div>
+        </div>
+
+        <!-- محصول ۷ -->
+        <div class="product-card">
+            <div class="product-title">بازدید پست اینستاگرام</div>
+            <div class="product-desc">بازدید پست اینستاگرام کاملاً پر سرعت. روزانه حداقل ۳ میلیون، حداکثر ۱۰ میلیون قابل اجراست. در صورت بالا بودن سفارش تخفیف داده می‌شود.</div>
+            <div class="product-footer">
+                <div class="product-price">هر ۱۰۰۰ بازدید: ۱۵ افغانی</div>
+                <a href="https://t.me/khan_temori_1?text=سلام، برای خرید بازدید اینستاگرام مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
+            </div>
+        </div>
+
+        <!-- محصول ۸ -->
+        <div class="product-card">
+            <div class="product-title">فالوور برای اینستاگرام</div>
+            <div class="product-desc">فالوور الترا سرعتی، ریزش ۰. گارانتی ۳ ماه: ۱۴۰ افغانی
+گارانتی ۱ ماه: ۱۲۰ افغانی
+گارانتی ۱ سال: ۱۷۰ افغانی</div>
+            <div class="product-footer">
+                <div class="product-price">شروع از ۱۲۰ افغانی</div>
+                <a href="https://t.me/khan_temori_1?text=سلام، برای خرید فالوور اینستاگرام مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
+            </div>
+        </div>
+
+        <!-- محصول ۹ -->
+        <div class="product-card">
+            <div class="product-title">لایک پست تیک‌تاک</div>
+            <div class="product-desc">لایک سرعتی بدون ریزش. حداقل سفارش ۱۰۰۰، حداکثر سفارش ۱ میلیون در روز.</div>
+            <div class="product-footer">
+                <div class="product-price">هر ۱۰۰۰ عدد: ۲۰ افغانی</div>
+                <a href="https://t.me/khan_temori_1?text=سلام، برای خرید لایک تیک تاک مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
+            </div>
+        </div>
+
+        <!-- محصول ۱۰ -->
+        <div class="product-card">
+            <div class="product-title">بازدید پست تیک‌تاک</div>
+            <div class="product-desc">بازدید فوق سرعتی، سریع با کیفیت. حداقل سفارش ۱۰۰۰، حداکثر سفارش ۱۰ میلیون در روز.</div>
+            <div class="product-footer">
+                <div class="product-price">هر ۱۰۰۰ عدد: ۱۵ افغانی</div>
+                <a href="https://t.me/khan_temori_1?text=سلام، برای خرید بازدید تیک تاک مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
+            </div>
+        </div>
+
+        <!-- محصول ۱۱ -->
+        <div class="product-card">
+            <div class="product-title">فالوور برای تیک‌تاک</div>
+            <div class="product-desc">فالوور تیک‌تاک الترا سرعتی، ریزش ۰. گارانتی یک سال.</div>
+            <div class="product-footer">
+                <div class="product-price">۲۵۰ افغانی</div>
+                <a href="https://t.me/khan_temori_1?text=سلام، برای خرید فالوور تیک تاک مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
+            </div>
+        </div>
+
+        <!-- محصول ۱۲ -->
+        <div class="product-card">
+            <div class="product-title">سابسکرایب برای یوتیوب</div>
+            <div class="product-desc">سابسکرایب اقتصادی یوتیوب (هر نوع ریزش امکان‌پذیر است، بدون گارانتی): ۳۰۰ افغانی
+سرویس دیگر (گاهی فعال می‌شود، گارانتی یک سال): ۵۰۰ افغانی</div>
+            <div class="product-footer">
+                <div class="product-price">شروع از ۳۰۰ افغانی</div>
+                <a href="https://t.me/khan_temori_1?text=سلام، برای خرید سابسکرایب یوتیوب مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
+            </div>
+        </div>
+
+        <!-- محصول ۱۳ -->
+        <div class="product-card">
+            <div class="product-title">بازدید پست یوتیوب</div>
+            <div class="product-desc">بازدید پست یوتیوب کاملاً سرعتی.</div>
+            <div class="product-footer">
+                <div class="product-price">هر ۱۰۰۰ عدد: ۱۲۰ افغانی</div>
+                <a href="https://t.me/khan_temori_1?text=سلام، برای خرید بازدید یوتیوب مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
+            </div>
+        </div>
+
+        <!-- محصول ۱۴ -->
+        <div class="product-card">
+            <div class="product-title">لایک برای یوتیوب</div>
+            <div class="product-desc">لایک بدون ریزش برای یوتیوب، سرعتی، گارانتی یک ماه.</div>
+            <div class="product-footer">
+                <div class="product-price">۱۰۰ افغانی</div>
+                <a href="https://t.me/khan_temori_1?text=سلام، برای خرید لایک یوتیوب مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
+            </div>
+        </div>
+
+        <!-- محصول ۱۵ -->
+        <div class="product-card">
+            <div class="product-title">کانال اسکم</div>
+            <div class="product-desc">کانال اسکم جهت زیبایی است. مارک پهلویش دائمی است، ذخیره و فوروارد ناممکن است.</div>
+            <div class="product-footer">
+                <div class="product-price">۳۰۰ افغانی</div>
+                <a href="https://t.me/khan_temori_1?text=سلام، برای خرید کانال اسکم مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
+            </div>
+        </div>
+
+        <!-- محصول ۱۶ -->
+        <div class="product-card">
+            <div class="product-title">اکانت اسکم</div>
+            <div class="product-desc">اکانت اسکم برای چت خصوصی بهتر است. قابلیت ذخیره، فوروارد، اسکرین‌شات قفل است. مارک پهلو دائمی است.</div>
+            <div class="product-footer">
+                <div class="product-price">۵۰۰ افغانی</div>
+                <a href="https://t.me/khan_temori_1?text=سلام، برای خرید اکانت اسکم مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
+            </div>
+        </div>
+
+        <!-- محصول ۱۷ -->
+        <div class="product-card">
+            <div class="product-title">سلف</div>
+            <div class="product-desc">هوشمند ساختن اکانت شما، تنظیم ساعت هر کشوری در کنار اسم شما، قابلیت ذخیره کردن عکس ثانیه‌دار، ویدیو و صدا ثانیه‌دار و دیگر قابلیت‌ها. تا ۶ ماه موجود است.</div>
+            <div class="product-footer">
+                <div class="product-price">ماهانه ۱۰۰ افغانی</div>
+                <a href="https://t.me/khan_temori_1?text=سلام، برای خرید سلف تلگرام مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
+            </div>
+        </div>
+
+        <!-- محصول ۱۸ -->
+        <div class="product-card">
+            <div class="product-title">ایموجی کلکسیون</div>
+            <div class="product-desc">ایموجی کلکسیون قابلیت عوض کردن بگراند اکانت و خودش NFT است که قیمتش بالاتر هم می‌رود.</div>
+            <div class="product-footer">
+                <div class="product-price">شروع از ۷۰۰ افغانی</div>
+                <a href="https://t.me/khan_temori_1?text=سلام، برای خرید ایموجی کلکسیون مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
+            </div>
+        </div>
+
+        <!-- محصول ۱۹ -->
+        <div class="product-card">
+            <div class="product-title">ری‌اکشن پست کانال</div>
+            <div class="product-desc">ری‌اکشن همراه با بازدید. حداقل سفارش ۱۰۰۰ عدد، حداکثر ۱۰۰ هزار روزانه. کاملاً سرعتی.</div>
+            <div class="product-footer">
+                <div class="product-price">هر ۱۰۰۰ عدد: ۲۰ افغانی</div>
+                <a href="https://t.me/khan_temori_1?text=سلام، برای خرید ری اکشن کانال مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
+            </div>
+        </div>
+
+        <!-- محصول ۲۰ -->
+        <div class="product-card">
+            <div class="product-title">بازدید پست کانال</div>
+            <div class="product-desc">بازدید پست تلگرام ظرفیت نامحدود. حداقل ۵۰۰۰، کاملاً سرعتی. در صورت سفارش بیشتر تخفیف داده می‌شود.</div>
+            <div class="product-footer">
+                <div class="product-price">هر ۱۰۰۰ عدد: ۱۰ افغانی</div>
+                <a href="https://t.me/khan_temori_1?text=سلام، برای خرید بازدید کانال مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
+            </div>
+        </div>
+
+        <div class="footer-text">
+            © 2024 خدمات مجازی تیموری<br>
+            مدیریت: پرویز تیموری
+        </div>
+
     </div>
 
 <script>
     // --- تنظیمات اولیه ---
-    let products = JSON.parse(localStorage.getItem('tamimi_products')) || [];
-    let currentProduct = null;
-
-    // --- صفحه خوش‌آمدگویی ---
     function enterSite() {
         document.getElementById('welcome-screen').style.opacity = '0';
         setTimeout(() => {
             document.getElementById('welcome-screen').style.display = 'none';
             document.getElementById('home-page').style.display = 'block';
-        }, 1000);
+        }, 800);
     }
 
-    // --- جابجایی صفحات ---
-    function hideAllPages() {
-        document.getElementById('home-page').style.display = 'none';
-        document.getElementById('products-page').style.display = 'none';
-        document.getElementById('order-page').style.display = 'none';
-    }
-
-    function goBack() {
-        hideAllPages();
-        document.getElementById('home-page').style.display = 'block';
-    }
-
-    // --- نمایش محصولات بر اساس دسته ---
-    function showProducts(category) {
-        hideAllPages();
-        document.getElementById('products-page').style.display = 'block';
-        
-        let catName = {
-            'telegram': 'خدمات تلگرام', 'instagram': 'خدمات اینستاگرام',
-            'tiktok': 'خدمات تیک‌تاک', 'youtube': 'خدمات یوتیوب', 'pubg': 'پابجی موبایل'
-        }[category];
-
-        document.getElementById('products-title').innerText = catName;
-        
-        let list = document.getElementById('product-list');
-        list.innerHTML = '';
-
-        let filtered = products.filter(p => p.category === category);
-
-        if (filtered.length === 0) {
-            list.innerHTML = '<p style="text-align:center; color:#888; margin-top:20px;">هنوز محصولی در این دسته ثبت نشده است.</p>';
-            return;
-        }
-
-        filtered.forEach(p => {
-            list.innerHTML += `
-                <div class="product-item">
-                    <div>
-                        <h4>${p.title}</h4>
-                        <span>${p.price} افغانی</span>
-                    </div>
-                    <button onclick="openOrder('${p.id}')">خرید</button>
-                </div>
-            `;
-        });
-    }
-
-    // --- صفحه جزئیات سفارش ---
-    function openOrder(id) {
-        hideAllPages();
-        currentProduct = products.find(p => p.id === id);
-        document.getElementById('order-page').style.display = 'block';
-        
-        document.getElementById('order-title').innerText = currentProduct.title;
-        document.getElementById('order-desc').innerText = currentProduct.desc || 'توضیحاتی برای این محصول ثبت نشده است.';
-        document.getElementById('order-qty').value = 1;
-        calculateTotal();
-    }
-
-    // --- محاسبه قیمت ---
-    function calculateTotal() {
-        if (!currentProduct) return;
-        let qty = parseInt(document.getElementById('order-qty').value) || 1;
-        let total = qty * parseInt(currentProduct.price);
-        document.getElementById('total-price').innerText = total;
-    }
-
-    // --- ارسال سفارش به واتساپ ---
-    function submitOrder() {
-        let qty = document.getElementById('order-qty').value;
-        let total = document.getElementById('total-price').innerText;
-        let msg = `سلام، من از سایت خدمات تیموری یک سفارش دارم:%0A%0A📦 محصول: ${currentProduct.title}%0A🔢 تعداد: ${qty}%0A💰 مبلغ کل: ${total} افغانی%0A%0Aلطفا راهنمایی کنید.`;
-        
-        // شماره واتساپ مدیر (پرویز تیموری - 0771091599)
-        window.open(`https://wa.me/93771091599?text=${msg}`, '_blank');
-    }
-
-    // --- دکمه افزایش موجودی ---
     function showWallet() {
-        alert('برای افزایش موجودی، لطفاً مبلغ را به حساب‌های زیر واریز کنید و رسید را در واتساپ ارسال کنید.\n\nعزیزی بانک: 5512 7000 5385 0306\nحساب پی: 0796936833\nمومو: 0771091599');
-    }
-
-    // --- پنل مدیریت مخفی ---
-    function openAdmin() {
-        let pass = prompt("رمز عبور پنل مدیریت را وارد کنید:");
-        if (pass === "1234") { // رمز عبور پیش فرض
-            document.getElementById('admin-panel').style.display = 'block';
-        } else if (pass !== null) {
-            alert('رمز اشتباه است!');
-        }
-    }
-
-    function addProduct() {
-        let cat = document.getElementById('p-category').value;
-        let title = document.getElementById('p-title').value;
-        let price = document.getElementById('p-price').value;
-        let desc = document.getElementById('p-desc').value;
-
-        if (!cat || !title || !price) {
-            alert('لطفاً دسته، نام و قیمت را وارد کنید.');
-            return;
-        }
-
-        products.push({
-            id: Date.now().toString(),
-            category: cat,
-            title: title,
-            price: price,
-            desc: desc
-        });
-
-        localStorage.setItem('tamimi_products', JSON.stringify(products));
-        alert('محصول با موفقیت اضافه شد!');
-        
-        document.getElementById('p-category').value = '';
-        document.getElementById('p-title').value = '';
-        document.getElementById('p-price').value = '';
-        document.getElementById('p-desc').value = '';
-    }
-
-    function clearProducts() {
-        if (confirm('آیا مطمئن هستید که می‌خواهید تمام محصولات را پاک کنید؟')) {
-            products = [];
-            localStorage.setItem('tamimi_products', JSON.stringify(products));
-            alert('همه محصولات پاک شدند.');
-        }
+        alert('برای افزایش موجودی، لطفاً مبلغ را به حساب‌های زیر واریز کنید و رسید را در تلگرام یا واتساپ ارسال کنید.\n\nعزیزی بانک: 5512 7000 5385 0306\nحساب پی: 0796936833\nمومو: 0771091599');
     }
 </script>
 </body>
