@@ -9,8 +9,8 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Vazirmatn', Tahoma, sans-serif; }
         
         :root {
-            --bg: #0a0a0a; 
-            --box: #151515; 
+            --bg: #050505; 
+            --box: rgba(20, 20, 20, 0.7); 
             --gold: #d4af37; 
             --text: #fff; 
             --gray: #aaa;
@@ -19,10 +19,14 @@
 
         body {
             background-color: var(--bg);
-            background-image: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05), transparent 60%);
+            /* افکت نورهای نئونی در پس‌زمینه */
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.08), transparent 30%),
+                radial-gradient(circle at 90% 80%, rgba(0, 136, 204, 0.08), transparent 30%);
             color: var(--text);
             min-height: 100vh;
             display: flex; flex-direction: column; align-items: center;
+            overflow-x: hidden;
         }
 
         /* صفحه خوش‌آمدگویی */
@@ -32,47 +36,95 @@
             justify-content: center; align-items: center; z-index: 9999;
             transition: opacity 1s ease;
         }
-        #welcome-screen h1 { color: var(--gold); font-size: 32px; margin-bottom: 10px; text-shadow: 0 0 20px var(--gold); text-align: center; }
+        #welcome-screen h1 { color: var(--gold); font-size: 34px; margin-bottom: 10px; text-shadow: 0 0 20px var(--gold); text-align: center; }
         #welcome-screen p { color: var(--gray); font-size: 16px; margin-bottom: 30px; text-align: center; }
-        #enter-btn { background: linear-gradient(135deg, #d4af37, #b8860b); color: #111; border: none; padding: 15px 40px; border-radius: 30px; font-size: 18px; font-weight: 900; cursor: pointer; box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
+        #enter-btn { 
+            background: linear-gradient(135deg, #d4af37, #b8860b); 
+            color: #111; border: none; padding: 15px 40px; border-radius: 30px; 
+            font-size: 18px; font-weight: 900; cursor: pointer; 
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5); 
+            transition: all 0.3s;
+        }
         #enter-btn:active { transform: scale(0.95); }
 
         /* هدر سایت */
-        .header { width: 100%; max-width: 600px; padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222;}
-        .header h1 { color: var(--gold); font-size: 20px; }
-        .wallet-btn { background: var(--box); border: 1px solid var(--gold); color: var(--gold); padding: 8px 15px; border-radius: 10px; font-size: 12px; cursor: pointer; text-decoration: none; }
+        .header { 
+            width: 100%; max-width: 600px; padding: 20px; 
+            display: flex; justify-content: space-between; align-items: center; 
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            background: rgba(0,0,0,0.5); backdrop-filter: blur(10px);
+            position: sticky; top: 0; z-index: 100;
+        }
+        .header h1 { color: var(--gold); font-size: 20px; text-shadow: 0 0 10px rgba(212, 175, 55, 0.5); }
+        .wallet-btn { 
+            background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold); 
+            color: var(--gold); padding: 8px 15px; border-radius: 10px; 
+            font-size: 12px; cursor: pointer; text-decoration: none; 
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+        }
 
         /* محتوای اصلی */
         .main-content { width: 100%; max-width: 600px; padding: 20px; display: none; }
         
-        /* کارت محصول */
+        /* کارت محصول (طراحی شیشه‌ای و نئونی) */
         .product-card {
-            background: var(--box); border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 15px; padding: 20px; margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            transition: all 0.3s ease;
+            background: var(--box); 
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px; padding: 20px; margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
+            backdrop-filter: blur(15px);
+            transition: all 0.4s ease;
+            position: relative; overflow: hidden;
         }
-        .product-card:hover { border-color: rgba(212, 175, 55, 0.4); transform: translateY(-2px); }
+        /* افکت درخشش روی کارت */
+        .product-card::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transition: all 0.6s ease;
+        }
+        .product-card:hover::before { left: 100%; }
+        .product-card:hover { 
+            border-color: rgba(212, 175, 55, 0.4); 
+            transform: translateY(-5px); 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.8), 0 0 20px rgba(212, 175, 55, 0.15);
+        }
         
-        .product-title { color: var(--gold); font-size: 18px; font-weight: 900; margin-bottom: 10px; border-right: 3px solid var(--gold); padding-right: 10px; }
+        .product-title { 
+            color: var(--gold); font-size: 18px; font-weight: 900; 
+            margin-bottom: 12px; border-right: 3px solid var(--gold); 
+            padding-right: 10px; text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
         .product-desc { color: #ccc; font-size: 14px; line-height: 1.8; margin-bottom: 15px; white-space: pre-line; }
         
-        .product-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed #333; padding-top: 15px; }
-        .product-price { color: #fff; font-size: 15px; font-weight: 700; }
+        .product-footer { 
+            display: flex; justify-content: space-between; align-items: center; 
+            border-top: 1px dashed rgba(212, 175, 55, 0.3); padding-top: 15px; 
+        }
+        .product-price { color: #fff; font-size: 15px; font-weight: 700; text-shadow: 0 0 5px rgba(255,255,255,0.3); }
         
+        /* دکمه سفارش خفن */
         .order-btn {
             background: linear-gradient(135deg, #0088cc, #00c6ff);
             color: #fff; text-decoration: none;
-            padding: 10px 25px; border-radius: 10px; font-weight: 700; font-size: 14px;
+            padding: 10px 25px; border-radius: 12px; font-weight: 700; font-size: 14px;
             display: flex; align-items: center; gap: 5px;
-            box-shadow: 0 4px 15px rgba(0, 136, 204, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 136, 204, 0.4);
             border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s;
         }
         .order-btn:active { transform: scale(0.95); }
+        .order-btn:hover { box-shadow: 0 0 20px rgba(0, 198, 255, 0.6); }
 
-        .footer-text { text-align: center; color: var(--gray); font-size: 12px; margin-top: 20px; padding-bottom: 30px; }
+        .footer-text { text-align: center; color: var(--gray); font-size: 12px; margin-top: 20px; padding-bottom: 40px; }
 
-        .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(50px); background: #111; color: var(--gold); padding: 10px 20px; border-radius: 30px; font-size: 13px; opacity: 0; transition: all 0.3s; z-index: 3000; border: 1px solid var(--gold); pointer-events: none; box-shadow: 0 0 15px var(--gold); text-align: center; }
+        /* پاپ‌آپ */
+        .toast { 
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(50px); 
+            background: #111; color: var(--gold); padding: 10px 20px; border-radius: 30px; 
+            font-size: 13px; opacity: 0; transition: all 0.3s; z-index: 3000; 
+            border: 1px solid var(--gold); pointer-events: none; box-shadow: 0 0 15px var(--gold); 
+            text-align: center; 
+        }
         .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
     </style>
 </head>
@@ -80,56 +132,53 @@
 
 <div class="toast" id="toast">کپی شد!</div>
 
-    <!-- صفحه خوش‌آمدگویی -->
     <div id="welcome-screen">
         <h1>خدمات مجازی تیموری</h1>
         <p>بهترین و باکیفیت‌ترین خدمات دیجیتال<br>با مدیریت پرویز تیموری</p>
         <button id="enter-btn" onclick="enterSite()">ورود به فروشگاه</button>
     </div>
 
-    <!-- هدر -->
     <div class="header">
         <h1>خدمات مجازی تیموری</h1>
         <a href="#" class="wallet-btn" onclick="showWallet()">💰 افزایش موجودی</a>
     </div>
 
-    <!-- محتوای اصلی -->
     <div class="main-content" id="home-page">
         
-        <!-- محصول ۱ -->
+        <!-- 1. ممبر -->
         <div class="product-card">
             <div class="product-title">ممبر برای کانال و گروه</div>
-            <div class="product-desc">ممبر برای گروه و کانال ۱ ماه بدون ریزش: ۷۰ افغانی
-ممبر برای گروه و کانال ۳ ماه ضمانت بدون ریزش: ۱۲۰ افغانی</div>
+            <div class="product-desc">ممبر برای گروه و کانال دایمی: ۶۰ افغانی
+ممبر برای گروه و کانال ۱ ماه: ۴۰ افغانی</div>
             <div class="product-footer">
-                <div class="product-price">شروع از ۷۰ افغانی</div>
+                <div class="product-price">شروع از ۴۰ افغانی</div>
                 <a href="https://t.me/khan_temori_1?text=سلام، برای خرید ممبر کانال مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
             </div>
         </div>
 
-        <!-- محصول ۲ -->
+        <!-- 2. پرمیوم -->
         <div class="product-card">
             <div class="product-title">پرمیوم برای تلگرام</div>
-            <div class="product-desc">پریمیوم ۳ ماه: ۱۲۰۰ افغانی (گیفت فوری)
-پریمیوم ۶ ماه: ۱۵۰۰ افغانی (گیفت فوری)
-پریمیوم ۱۲ ماه: ۲۵۰۰ افغانی (گیفت فوری)</div>
+            <div class="product-desc">پرمیوم ۳ ماه: ۱۰۵۰ افغانی
+پرمیوم ۶ ماه: ۱۳۵۰ افغانی
+پرمیوم ۱ سال: ۲۳۰۰ افغانی</div>
             <div class="product-footer">
-                <div class="product-price">شروع از ۱۲۰۰ افغانی</div>
+                <div class="product-price">شروع از ۱۰۵۰ افغانی</div>
                 <a href="https://t.me/khan_temori_1?text=سلام، برای خرید پرمیوم تلگرام مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
             </div>
         </div>
 
-        <!-- محصول ۳ -->
+        <!-- 3. اکانت مجازی -->
         <div class="product-card">
             <div class="product-title">اکانت مجازی تلگرام</div>
-            <div class="product-desc">اکانت‌های مجازی تلگرام از هر کشور موجود است. تنها اکانت‌هایی که از طرف ما ضمانت دارد. اکانت‌های شماره افغانستان است.</div>
+            <div class="product-desc">اکانت‌های مجازی تلگرام از هر کشور موجود است. تنها اکانت‌هایی که از طرف ما ضمانت دارد. (اکانت‌های شماره افغانستان)</div>
             <div class="product-footer">
-                <div class="product-price">هر اکانت ۱۰۰ افغانی</div>
+                <div class="product-price">شروع از ۵۰ افغانی</div>
                 <a href="https://t.me/khan_temori_1?text=سلام، برای خرید اکانت مجازی تلگرام مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
             </div>
         </div>
 
-        <!-- محصول ۴ -->
+        <!-- 4. استارز -->
         <div class="product-card">
             <div class="product-title">استارز تلگرام</div>
             <div class="product-desc">فروش استارز تلگرام از ۵۰ دانه تا ۱۰,۰۰۰. قیمت استارز لحظه‌ای (بخاطر پایین و بالا رفتن دلار)</div>
@@ -139,166 +188,64 @@
             </div>
         </div>
 
-        <!-- محصول ۵ -->
+        <!-- 5. بوست -->
         <div class="product-card">
             <div class="product-title">بوست برای کانال</div>
-            <div class="product-desc">افزایش سطح کانال توسط بوست. قیمت هر عدد بوست یک ماه ۳۰ افغانی تا ۶ ماه. هر تعداد موجود، ضمانتی.</div>
+            <div class="product-desc">افزایش سطح کانال توسط بوست. ماهانه ۲۵ افغانی.</div>
             <div class="product-footer">
-                <div class="product-price">شروع از ۳۰ افغانی</div>
+                <div class="product-price">۲۵ افغانی</div>
                 <a href="https://t.me/khan_temori_1?text=سلام، برای خرید بوست کانال مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
             </div>
         </div>
 
-        <!-- محصول ۶ -->
+        <!-- 6. فالوور -->
         <div class="product-card">
-            <div class="product-title">لایک پست اینستاگرام</div>
-            <div class="product-desc">لایک برای پست اینستاگرام کاملاً پر سرعت و بدون ریزش. حداقل سفارش ۱۰۰۰، حداکثر ۱ میلیون. در صورت بالا بودن سفارش تخفیف داده می‌شود.</div>
+            <div class="product-title">فالوور برای شبکه‌های اجتماعی</div>
+            <div class="product-desc">فالوور الترا سرعتی، ریزش ۰. (برای اینستاگرام و تیک‌تاک)</div>
             <div class="product-footer">
-                <div class="product-price">هر ۱۰۰۰ لایک: ۳۰ افغانی</div>
-                <a href="https://t.me/khan_temori_1?text=سلام، برای خرید لایک اینستاگرام مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
+                <div class="product-price">۳۵۰ افغانی</div>
+                <a href="https://t.me/khan_temori_1?text=سلام، برای خرید فالوور مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
             </div>
         </div>
 
-        <!-- محصول ۷ -->
-        <div class="product-card">
-            <div class="product-title">بازدید پست اینستاگرام</div>
-            <div class="product-desc">بازدید پست اینستاگرام کاملاً پر سرعت. روزانه حداقل ۳ میلیون، حداکثر ۱۰ میلیون قابل اجراست. در صورت بالا بودن سفارش تخفیف داده می‌شود.</div>
-            <div class="product-footer">
-                <div class="product-price">هر ۱۰۰۰ بازدید: ۱۵ افغانی</div>
-                <a href="https://t.me/khan_temori_1?text=سلام، برای خرید بازدید اینستاگرام مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
-            </div>
-        </div>
-
-        <!-- محصول ۸ -->
-        <div class="product-card">
-            <div class="product-title">فالوور برای اینستاگرام</div>
-            <div class="product-desc">فالوور الترا سرعتی، ریزش ۰. گارانتی ۳ ماه: ۱۴۰ افغانی
-گارانتی ۱ ماه: ۱۲۰ افغانی
-گارانتی ۱ سال: ۱۷۰ افغانی</div>
-            <div class="product-footer">
-                <div class="product-price">شروع از ۱۲۰ افغانی</div>
-                <a href="https://t.me/khan_temori_1?text=سلام، برای خرید فالوور اینستاگرام مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
-            </div>
-        </div>
-
-        <!-- محصول ۹ -->
-        <div class="product-card">
-            <div class="product-title">لایک پست تیک‌تاک</div>
-            <div class="product-desc">لایک سرعتی بدون ریزش. حداقل سفارش ۱۰۰۰، حداکثر سفارش ۱ میلیون در روز.</div>
-            <div class="product-footer">
-                <div class="product-price">هر ۱۰۰۰ عدد: ۲۰ افغانی</div>
-                <a href="https://t.me/khan_temori_1?text=سلام، برای خرید لایک تیک تاک مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
-            </div>
-        </div>
-
-        <!-- محصول ۱۰ -->
-        <div class="product-card">
-            <div class="product-title">بازدید پست تیک‌تاک</div>
-            <div class="product-desc">بازدید فوق سرعتی، سریع با کیفیت. حداقل سفارش ۱۰۰۰، حداکثر سفارش ۱۰ میلیون در روز.</div>
-            <div class="product-footer">
-                <div class="product-price">هر ۱۰۰۰ عدد: ۱۵ افغانی</div>
-                <a href="https://t.me/khan_temori_1?text=سلام، برای خرید بازدید تیک تاک مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
-            </div>
-        </div>
-
-        <!-- محصول ۱۱ -->
-        <div class="product-card">
-            <div class="product-title">فالوور برای تیک‌تاک</div>
-            <div class="product-desc">فالوور تیک‌تاک الترا سرعتی، ریزش ۰. گارانتی یک سال.</div>
-            <div class="product-footer">
-                <div class="product-price">۲۵۰ افغانی</div>
-                <a href="https://t.me/khan_temori_1?text=سلام، برای خرید فالوور تیک تاک مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
-            </div>
-        </div>
-
-        <!-- محصول ۱۲ -->
-        <div class="product-card">
-            <div class="product-title">سابسکرایب برای یوتیوب</div>
-            <div class="product-desc">سابسکرایب اقتصادی یوتیوب (هر نوع ریزش امکان‌پذیر است، بدون گارانتی): ۳۰۰ افغانی
-سرویس دیگر (گاهی فعال می‌شود، گارانتی یک سال): ۵۰۰ افغانی</div>
-            <div class="product-footer">
-                <div class="product-price">شروع از ۳۰۰ افغانی</div>
-                <a href="https://t.me/khan_temori_1?text=سلام، برای خرید سابسکرایب یوتیوب مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
-            </div>
-        </div>
-
-        <!-- محصول ۱۳ -->
-        <div class="product-card">
-            <div class="product-title">بازدید پست یوتیوب</div>
-            <div class="product-desc">بازدید پست یوتیوب کاملاً سرعتی.</div>
-            <div class="product-footer">
-                <div class="product-price">هر ۱۰۰۰ عدد: ۱۲۰ افغانی</div>
-                <a href="https://t.me/khan_temori_1?text=سلام، برای خرید بازدید یوتیوب مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
-            </div>
-        </div>
-
-        <!-- محصول ۱۴ -->
-        <div class="product-card">
-            <div class="product-title">لایک برای یوتیوب</div>
-            <div class="product-desc">لایک بدون ریزش برای یوتیوب، سرعتی، گارانتی یک ماه.</div>
-            <div class="product-footer">
-                <div class="product-price">۱۰۰ افغانی</div>
-                <a href="https://t.me/khan_temori_1?text=سلام، برای خرید لایک یوتیوب مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
-            </div>
-        </div>
-
-        <!-- محصول ۱۵ -->
+        <!-- 7. کانال اسکم -->
         <div class="product-card">
             <div class="product-title">کانال اسکم</div>
             <div class="product-desc">کانال اسکم جهت زیبایی است. مارک پهلویش دائمی است، ذخیره و فوروارد ناممکن است.</div>
             <div class="product-footer">
-                <div class="product-price">۳۰۰ افغانی</div>
+                <div class="product-price">۱۶۰ افغانی</div>
                 <a href="https://t.me/khan_temori_1?text=سلام، برای خرید کانال اسکم مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
             </div>
         </div>
 
-        <!-- محصول ۱۶ -->
+        <!-- 8. اکانت اسکم -->
         <div class="product-card">
             <div class="product-title">اکانت اسکم</div>
-            <div class="product-desc">اکانت اسکم برای چت خصوصی بهتر است. قابلیت ذخیره، فوروارد، اسکرین‌شات قفل است. مارک پهلو دائمی است.</div>
+            <div class="product-desc">اکانت اسکم برای چت خصوصی بهتر است. قابلیت ذخیره، فوروارد، اسکرین‌شات قفل است. مارک پهلو دائمی است.
+(ریپ: ۲۰۰ افغانی | بدون ریپ: ۳۰۰ افغانی)</div>
             <div class="product-footer">
-                <div class="product-price">۵۰۰ افغانی</div>
+                <div class="product-price">شروع از ۲۰۰ افغانی</div>
                 <a href="https://t.me/khan_temori_1?text=سلام، برای خرید اکانت اسکم مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
             </div>
         </div>
 
-        <!-- محصول ۱۷ -->
+        <!-- 9. لایک و بازدیدها -->
         <div class="product-card">
-            <div class="product-title">سلف</div>
-            <div class="product-desc">هوشمند ساختن اکانت شما، تنظیم ساعت هر کشوری در کنار اسم شما، قابلیت ذخیره کردن عکس ثانیه‌دار، ویدیو و صدا ثانیه‌دار و دیگر قابلیت‌ها. تا ۶ ماه موجود است.</div>
+            <div class="product-title">لایک و بازدید (اینستا، تیک‌تاک، یوتیوب)</div>
+            <div class="product-desc">لایک و بازدید پست‌ها با سرعت بالا و بدون ریزش. (حداقل سفارش ۱۰۰۰)</div>
+            <div class="product-footer">
+                <div class="product-price">قیمت از ۱۵ افغانی</div>
+                <a href="https://t.me/khan_temori_1?text=سلام، برای خرید لایک و بازدید مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
+            </div>
+        </div>
+
+        <!-- 10. سلف -->
+        <div class="product-card">
+            <div class="product-title">سلف تلگرام</div>
+            <div class="product-desc">هوشمند ساختن اکانت شما، تنظیم ساعت هر کشوری، قابلیت ذخیره عکس و ویدیو ثانیه‌دار. (ماهانه ۱۰۰ افغانی)</div>
             <div class="product-footer">
                 <div class="product-price">ماهانه ۱۰۰ افغانی</div>
                 <a href="https://t.me/khan_temori_1?text=سلام، برای خرید سلف تلگرام مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
-            </div>
-        </div>
-
-        <!-- محصول ۱۸ -->
-        <div class="product-card">
-            <div class="product-title">ایموجی کلکسیون</div>
-            <div class="product-desc">ایموجی کلکسیون قابلیت عوض کردن بگراند اکانت و خودش NFT است که قیمتش بالاتر هم می‌رود.</div>
-            <div class="product-footer">
-                <div class="product-price">شروع از ۷۰۰ افغانی</div>
-                <a href="https://t.me/khan_temori_1?text=سلام، برای خرید ایموجی کلکسیون مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
-            </div>
-        </div>
-
-        <!-- محصول ۱۹ -->
-        <div class="product-card">
-            <div class="product-title">ری‌اکشن پست کانال</div>
-            <div class="product-desc">ری‌اکشن همراه با بازدید. حداقل سفارش ۱۰۰۰ عدد، حداکثر ۱۰۰ هزار روزانه. کاملاً سرعتی.</div>
-            <div class="product-footer">
-                <div class="product-price">هر ۱۰۰۰ عدد: ۲۰ افغانی</div>
-                <a href="https://t.me/khan_temori_1?text=سلام، برای خرید ری اکشن کانال مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
-            </div>
-        </div>
-
-        <!-- محصول ۲۰ -->
-        <div class="product-card">
-            <div class="product-title">بازدید پست کانال</div>
-            <div class="product-desc">بازدید پست تلگرام ظرفیت نامحدود. حداقل ۵۰۰۰، کاملاً سرعتی. در صورت سفارش بیشتر تخفیف داده می‌شود.</div>
-            <div class="product-footer">
-                <div class="product-price">هر ۱۰۰۰ عدد: ۱۰ افغانی</div>
-                <a href="https://t.me/khan_temori_1?text=سلام، برای خرید بازدید کانال مزاحم شدم." target="_blank" class="order-btn">✈️ سفارش</a>
             </div>
         </div>
 
@@ -310,7 +257,6 @@
     </div>
 
 <script>
-    // --- تنظیمات اولیه ---
     function enterSite() {
         document.getElementById('welcome-screen').style.opacity = '0';
         setTimeout(() => {
